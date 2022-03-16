@@ -1,22 +1,10 @@
-import { PubSub } from "apollo-server-express";
+
 import { depositData } from "./models/index.js";
-
-const pubSub = new PubSub();
-
-const price = {
-    value: 44.44444,
-    currency: 'USD'
-};
+import { pubSub } from "./pubSub.js";
 
 const Query = {
     greeting: () => 'Hello',
     deposits: async () => {
-        setInterval(() => {
-            pubSub.publish('PRICE_REFRESHED', {PriceRefreshed: price})
-        }, 1000);
-
-        //listen to 
-
         return await depositData.find();
     },
     ethPrice: () => { return {
