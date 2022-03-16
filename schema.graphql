@@ -1,0 +1,38 @@
+type Query {
+    greeting: String,
+    deposits: [Deposit],
+    ethPrice: Price
+}
+
+type Mutation {
+    deposits(input: [DepositInput]): [Deposit]
+}
+
+type Subscription {
+    PriceRefreshed: Price
+}
+
+type Deposit {
+    id: ID,
+    date: String,
+    name: String,
+    description: String,
+    price: Price
+}
+
+type Price {
+    value: Float,
+    currency: String
+}
+
+input PriceInput {
+    value: Float,
+    currency: String
+}
+
+input DepositInput {
+    date: String,
+    name: String,
+    price: PriceInput
+}
+
