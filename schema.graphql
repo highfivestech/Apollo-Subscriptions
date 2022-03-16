@@ -5,11 +5,12 @@ type Query {
 }
 
 type Mutation {
-    deposits(input: [DepositInput]): [Deposit]
+    deposit(input: DepositInput): Deposit
 }
 
 type Subscription {
-    PriceRefreshed: Price
+    PriceRefreshed: Price,
+    DepositRefreshed: [Deposit]
 }
 
 type Deposit {

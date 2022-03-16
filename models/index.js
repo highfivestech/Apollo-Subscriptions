@@ -1,5 +1,17 @@
 import mongoose from "mongoose";
 
+const PriceSchema = mongoose.Schema({
+    value: {
+        type: Number,
+        required: true
+    },
+    currency: {
+        type: String,
+        required: true,
+        default: 'USD'
+    }
+})
+
 const DepositSchema = mongoose.Schema({
     description: {
         type: String
@@ -13,13 +25,8 @@ const DepositSchema = mongoose.Schema({
         default: new Date()
     },
     price: {
-        type: String,
+        type: PriceSchema,
         required: true
-    },
-    currency: {
-        type: String,
-        required: true,
-        default: 'USD'
     }
 });
 
