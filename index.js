@@ -5,14 +5,11 @@ import fs from 'fs';
 import express from 'express';
 import * as resolvers from './resolvers.js';
 import mongoose from 'mongoose';
-import { ChainId, Fetcher, WETH, Route, Trade, TokenAmount, TradeType } from '@uniswap/sdk';
-import { ethers } from 'ethers';
 import { depositData } from "./models/index.js";
 import { pubSub } from './pubSub.js';
 
-
 const port = 4000;
-const url= "mongodb+srv://RainbowShops:RainbowShops@mongocluster.oylcx.mongodb.net/REDXAM?retryWrites=true&w=majority";
+const mongoUrl= "mongodb+srv://RainbowShops:RainbowShops@mongocluster.oylcx.mongodb.net/REDXAM?retryWrites=true&w=majority";
 
 const app = express();
 app.use(bodyParser.json());
@@ -25,7 +22,7 @@ apolloServer.applyMiddleware({app});
 const httpServer = http.createServer(app);
 apolloServer.installSubscriptionHandlers(httpServer);
 
-mongoose.connect(url,{useNewUrlParser: true});
+mongoose.connect(mongoUrl,{useNewUrlParser: true});
 const con = mongoose.connection;
 try{
     con.on('open',() => {
@@ -42,13 +39,9 @@ try{
     console.log("Error: "+error);
 }
 
-const price = {
-    value: 44.44444,
-    currency: 'USD'
-};
 
 setInterval(() => {
-    pubSub.publish('PRICE_REFRESHED', {PriceRefreshed: price})
+    pubSub.publish('PRICE_REFRESHED', {PriceRefreshed: ''})
 }, 1000);
 
 
