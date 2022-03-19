@@ -5,7 +5,7 @@ const url = 'https://mainnet.infura.io/v3/fd671da62c0b40c4883a5454463a2922';
 const customHttpProvider = new ethers.providers.JsonRpcProvider(url);
 
 const chainId = ChainId.MAINNET;
-const tokenAddress = '0xc3761EB917CD790B30dAD99f6Cc5b4Ff93C4F9eA';
+const tokenAddress = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
 
 export async function fetchPrice() {
     const dai = await Fetcher.fetchTokenData(chainId, tokenAddress, customHttpProvider);
@@ -17,11 +17,6 @@ export async function fetchPrice() {
         DAI: route.midPrice.toSignificant(6)
     };
 }
-
-// const init = async () => {
-	
-// }
-
 
 // PROJECT ID
 // fd671da62c0b40c4883a5454463a2922
