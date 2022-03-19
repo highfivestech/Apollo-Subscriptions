@@ -9,7 +9,7 @@ import { depositData } from "./models/index.js";
 import { pubSub } from './pubSub.js';
 
 const port = 4000;
-const mongoUrl= "mongodb+srv://RainbowShops:RainbowShops@mongocluster.oylcx.mongodb.net/REDXAM?retryWrites=true&w=majority";
+const mongoUrl= "ENTER_MONGO_URL";
 
 const app = express();
 app.use(bodyParser.json());
