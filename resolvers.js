@@ -2,9 +2,9 @@
 import { depositData } from "./models/index.js";
 import { pubSub } from "./pubSub.js";
 import { fetchPrice } from "./infura.js";
+import CoinGecko from 'coingecko-api';
 
 const Query = {
-    greeting: () => 'Hello',
     deposits: async () => {
         return await depositData.find();
     },
@@ -12,7 +12,7 @@ const Query = {
         const res = await fetchPrice();
         return {
         value: res.DAI,
-        currency: 'USD'
+        currency: 'DAI'
     }}
 }
 
@@ -30,6 +30,9 @@ const Mutation = {
 }
 
 const Subscription = {
+    /*
+    PriceRefreshed gets Price using uniswap
+    */
     PriceRefreshed: {
         resolve: async () => {
             const price = await fetchPrice();
@@ -39,6 +42,28 @@ const Subscription = {
             }
         },
         subscribe: () => pubSub.asyncIterator('PRICE_REFRESHED')
+    },
+    /*
+    PriceFromCryptoLib gets Price with CoinGecko
+    */
+    PriceFromCryptoLib: {
+        resolve: async () => {
+            const CoinGeckoClient = new CoinGecko();
+            let data = await CoinGeckoClient.exchanges.fetchTickers("bitfinex", {
+                coin_ids: ["bitcoin", "ethereum"],
+              });
+
+            const _coinList = {};
+            const _datacc = data.data.tickers.filter((t) => t.target == "USD");
+            
+            return _datacc.map(d => {return {
+                name: d.base,
+                value: d.last,
+                currency: d.target
+            }});    
+        }       
+        ,
+        subscribe: () => pubSub.asyncIterator('PRICE_REFRESHED_CRYPTO_LIB')
     },
     DepositRefreshed: {
         subscribe: () => pubSub.asyncIterator('DEPOSIT_REFRESHED')

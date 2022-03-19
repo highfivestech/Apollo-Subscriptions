@@ -44,5 +44,10 @@ setInterval(() => {
     pubSub.publish('PRICE_REFRESHED', {PriceRefreshed: ''})
 }, 1000);
 
+setInterval(() => {
+    pubSub.publish('PRICE_REFRESHED_CRYPTO_LIB', {PriceFromCryptoLib: ''})
+}, 1000);
+
+
 
 httpServer.listen(port, () => console.info(`Server started on port ${port}`));

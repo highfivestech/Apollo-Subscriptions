@@ -1,4 +1,4 @@
-import { ChainId, Fetcher, WETH, Route, Trade, TokenAmount, TradeType } from '@uniswap/sdk';
+import { ChainId, Fetcher, WETH, Route } from '@uniswap/sdk';
 import { ethers } from 'ethers';
 
 const url = 'https://mainnet.infura.io/v3/fd671da62c0b40c4883a5454463a2922';
@@ -12,7 +12,6 @@ export async function fetchPrice() {
 	const weth = WETH[chainId];
 	const pair = await Fetcher.fetchPairData(dai, weth, customHttpProvider);
 	const route = new Route([pair], weth);
-	//const trade = new Trade(route, new TokenAmount(weth, '100000000000000000'), TradeType.EXACT_INPUT);
     return {
         DAI: route.midPrice.toSignificant(6)
     };

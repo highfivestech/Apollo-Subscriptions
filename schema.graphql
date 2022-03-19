@@ -1,5 +1,4 @@
 type Query {
-    greeting: String,
     deposits: [Deposit],
     ethPrice: Price
 }
@@ -10,7 +9,8 @@ type Mutation {
 
 type Subscription {
     PriceRefreshed: Price,
-    DepositRefreshed: [Deposit]
+    DepositRefreshed: [Deposit],
+    PriceFromCryptoLib: [Price]
 }
 
 type Deposit {
@@ -23,7 +23,8 @@ type Deposit {
 
 type Price {
     value: Float,
-    currency: String
+    currency: String,
+    name: String
 }
 
 input PriceInput {
